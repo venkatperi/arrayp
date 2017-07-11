@@ -14,7 +14,7 @@ endif::[]
 = `arrayp`
 `arrayp` is a utility module which provides functions for manipulating collections of JavaScript `Promise` objects.
 
-toc:[]
+toc::[]
 
 == Install
 Install with `npm`.
