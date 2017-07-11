@@ -1,8 +1,6 @@
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :rootdir: .
 :imagesdir: {rootdir}/images
-:toclevels: 2
-:toc: macro
 :numbered:
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -10,6 +8,9 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :caution-caption: :fire:
 :warning-caption: :warning:
 endif::[]
+:toclevels: 2
+:toc:
+:toc-placement!:
 
 = `arrayp`
 `arrayp` is a utility module which provides functions for manipulating collections of JavaScript `Promise` objects.
