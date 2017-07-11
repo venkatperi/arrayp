@@ -13,6 +13,7 @@ endif::[]
 :toc-placement!:
 
 = `arrayp`
+
 `arrayp` is a utility module which provides functions for manipulating collections of JavaScript `Promise` objects.
 
 toc::[]
