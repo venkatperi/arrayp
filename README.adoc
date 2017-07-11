@@ -1,7 +1,48 @@
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+:rootdir: .
+:imagesdir: {rootdir}/images
+:toclevels: 2
+:toc:
+:numbered:
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+= `arrayp`
+`arrayp` is a utility module which provides functions for manipulating collections of JavaScript `Promise` objects.
+
+== Install
+Install with `npm`.
+
+```bash
+$ npm install arrayp --save
+```
+
+== Usage
+```javascript
+const arrayp = require('arrayp');
+```
+
+=== How `arrayp` Uses Collections
+`arrayp` methods operate on JavaScript collections which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. Methods use the `Promise` objects by asynchronously waiting for an item's result (or error). In one sense, the collection can be viewed as containing tasks which are executed by `arrayp` methods.
+
+Collection items are converted to `Promise` objects in the following manner:
+
+* `Promise` objects are used as-is. Methods _invoke_ the item by using the result of the `Promise`  object.
+* Non `Promise` objects are converted to a `Promise` which resolves to the object (with `Promise.resolve()`). Invoking the item returns the item itself.
+* Functions are wrapped in a `Promise`. When used, the function is invoked and the `Promise` resolves with the value returned by the function, or is rejected with an error if the function throws an error.
+
+== Methods
+
 === `tryEach(array)`
+
 ```javascript
 const {tryEach} = require('arrayp');
 ```
+
 Runs each `Promise` in the series. It stops at the first `Promise` that resolves successfully and returns a promise which resolves to that value. If all promises fail, it returns a promise which is rejected with the error returned by the final item in the series.
 
 ==== Parameters
