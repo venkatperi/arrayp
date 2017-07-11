@@ -62,9 +62,19 @@ describe 'arrayp', ->
 
   describe 'tryEach', ->
 
+
     it 'It runs each task in series but stops whenever any of the functions were successful', ->
       arrayp.tryEach( [ $X( 1 ), $X( 2 ), 3 ] ).then ( res ) ->
         assert.equal res, 3
+
+    it 'example', ->
+      arrayp.tryEach( [
+        Promise.reject('not this'),
+        -> throw new Error('not this either'),
+        1
+        "shouldn't get here"
+      ] ).then ( res ) ->
+        assert.equal res, 1
 
     it "returns the last promise's error if none are successful", ->
       arrayp.tryEach( [ $X( 1 ), $X( 2 ), $X 3 ] ).catch ( res ) ->

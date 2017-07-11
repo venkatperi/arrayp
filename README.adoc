@@ -1,0 +1,38 @@
+=== `tryEach(array)`
+```javascript
+const {tryEach} = require('arrayp');
+```
+Runs each `Promise` in the series. It stops at the first `Promise` that resolves successfully and returns a promise which resolves to that value. If all promises fail, it returns a promise which is rejected with the error returned by the final item in the series.
+
+==== Parameters
+[cols="2,3,10", options="header"]
+|===
+| Name | Type | Description
+
+| array
+| Array, Iterable
+a| A collection containing promises, non-promises or functions that return promises. Each item is converted to a promise:
+
+* Non promises are wrapped in `Promise.resolve()`.
+* Functions are invoked and their result is wrapped in `Promise.resolve()`.
+|===
+
+==== Example
+
+```javascript
+arrayp.tryEach([
+  Promise.reject('not this'),
+  () => {throw new Error('not this either')},
+  'this one',
+  "shouldn't get here"
+]).then(console.log);
+
+//output: this one
+```
+
+
+=== `series(array [, join])`
+
+=== `waterfall(array [, join])`
+
+=== `parallel(array [, limit])`
