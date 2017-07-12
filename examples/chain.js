@@ -29,3 +29,10 @@ arrayp.chain( [
   ( x ) => x * 3,
   ( x ) => Promise.resolve( x - 4 ),
 ] ).then( console.log );
+
+Promise
+    .resolve( 1 )
+    .then( ( x ) => new Promise( ( resolve ) => setTimeout( () => resolve( x + 1 ), 250 ) ) )
+    .then( ( x ) => x * 3 )
+    .then( ( x ) => Promise.resolve( x - 4 ) )
+    .then(console.log);
