@@ -27,8 +27,8 @@ describe 'chain', ->
       assert.equal res, 'test'
 
   it 'result of item is argument to next', ->
-    arrayp.chain( functions ).then ( res )->
-      assert.equal res, 4
+    arrayp.chain( [101, ((x) -> x * 2)] ).then ( res )->
+      assert.equal res, 202
 
   it 'stops on error', ( ) ->
     arrayp.chain( rejecting )

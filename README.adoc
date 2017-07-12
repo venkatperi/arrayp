@@ -31,7 +31,7 @@ const arrayp = require('arrayp');
 ```
 
 === About `arrayp` Collections
-`arrayp` methods operate on JavaScript iterables footnoteref:[iterable] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. Methods use the `Promise` objects by asynchronously waiting for an item's result (or error). In one sense, the collection can be viewed as containing tasks which are executed by `arrayp` methods.
+`arrayp` methods operate on JavaScript https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol:[iterables] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. Methods use the `Promise` objects by asynchronously waiting for an item's result (or error). In one sense, the collection can be viewed as containing tasks which are executed by `arrayp` methods.
 
 Collection items are converted to `Promise` objects in the following manner:
 
