@@ -1,14 +1,13 @@
 assert = require( 'assert' )
 arrayp = require( '..' )
+{$Px, $Pr} = require( '../lib/util' )
 
-$X = ( x ) -> Promise.reject( x )
-
-functions = [ (->  1), (( x ) -> x + 1), ( ( x ) -> x * 2) ]
-
+ok = -> throw new Error( "should execute this" )
+notOk = -> throw new Error( "shouldn't execute this" )
 
 describe 'first', ->
-  it 'It runs each task in series but stops whenever any of the functions were successful', ->
-    arrayp.first( [ $X( 1 ), $X( 2 ), 3 ] ).then ( res ) ->
+  it 'stops at first successful item', ->
+    arrayp.first( [ $Px( 1 ), $Px( 2 ), ok, 3, notOk ] ).then ( res ) ->
       assert.equal res, 3
 
   it 'example', ->
@@ -21,6 +20,6 @@ describe 'first', ->
       assert.equal res, 1
 
   it "returns the last promise's error if none are successful", ->
-    arrayp.first( [ $X( 1 ), $X( 2 ), $X 3 ] ).catch ( res ) ->
+    arrayp.first( [ $Px( 1 ), $Px( 2 ), $Px 3 ] ).catch ( res ) ->
       assert.equal res, 3
 

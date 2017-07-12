@@ -67,6 +67,21 @@ arrayp.chain( [
 //output: 2
 ```
 
+This is equivalent to the following `Promise` chain:
+
+```javascript
+Promise
+    .resolve( 1 )
+    .then( ( x ) => new Promise(
+      ( resolve ) => setTimeout(
+        () => resolve( x + 1 ), 250 ) ) )
+    .then( ( x ) => x * 3 )
+    .then( ( x ) => Promise.resolve( x - 4 ) )
+    .then(console.log);
+
+//output: 2
+```
+
 === `first(array)`
 
 ```javascript
@@ -75,18 +90,8 @@ const {tryEach} = require('arrayp');
 
 Runs each item of the array in series and returns a `Promise`. It stops at the first `Promise` that resolves successfully and the returned `Promise` resolves to that value. If all items in the array reject with errors, the returned `Promise` is rejected with the error returned by the final item in the series.
 
-==== Parameters
-[cols="2,3,10", options="header"]
-|===
-| Name | Type | Description
-
-| array
-| Array, Iterable
-a| A collection containing promises, non-promises or functions that return promises. Each item is converted to a promise:
-
-* Non promises are wrapped in `Promise.resolve()`.
-* Functions are invoked and their result is wrapped in `Promise.resolve()`.
-|===
+==== Arguments
+*  `*array*` `Array` | `Iterable`
 
 ==== Example
 

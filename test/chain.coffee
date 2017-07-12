@@ -36,7 +36,11 @@ describe 'chain', ->
       assert.equal res, 4
 
   it 'stops on error', ( ) ->
-    arrayp.chain( [ 1, 2, $Px( 3 ) ] )
+    arrayp.chain( [ 1, 2, $Px( 3 ), 7 ] )
       .then -> throw new Error "shouldn't get here"
       .catch ( x ) -> assert.equal x, 3
+
+  it 'initial value', ->
+    arrayp.chain( functions[ 1.. ], 10 ).then ( res )->
+      assert.equal res, 22
 
