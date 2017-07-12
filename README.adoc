@@ -14,7 +14,7 @@ endif::[]
 
 = `arrayp`
 
-`arrayp` is a utility module which provides functions for manipulating collections of JavaScript `Promise` objects.
+`arrayp` provides functions for manipulating collections of JavaScript `Promise` objects.
 
 //toc:Iu:[]
 
@@ -31,7 +31,7 @@ const arrayp = require('arrayp');
 ```
 
 === About `arrayp` Collections
-`arrayp` methods operate on JavaScript collections which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. Methods use the `Promise` objects by asynchronously waiting for an item's result (or error). In one sense, the collection can be viewed as containing tasks which are executed by `arrayp` methods.
+`arrayp` methods operate on JavaScript iterables footnoteref:[iterable] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. Methods use the `Promise` objects by asynchronously waiting for an item's result (or error). In one sense, the collection can be viewed as containing tasks which are executed by `arrayp` methods.
 
 Collection items are converted to `Promise` objects in the following manner:
 
@@ -46,18 +46,28 @@ Collection items are converted to `Promise` objects in the following manner:
 ```javascript
 const {chain} = require('arrayp');
 ```
-The `chain` method evaluates each promise in the iterable in series and returns a `Promise` that resolves with the value from the last item in the iterable, or rejects with the reason from the first item in the iterable that rejects.
+The `chain` method evaluates each promise in the iterable in series and returns a `Promise` that resolves with the value from the last item in the iterable, or rejects with the reason from the first item in the iterable that rejects. The value from one item in the iterable is passed as an argument to the next item. An optional `initial` value to the `chain` method will be passed to the first promise of the iterable.
 
-The value from one item in the iterable is passed as an argument to the next item. This is meaningful only when the next item is a function (similar to a `onFulfilled` handler of the `Promise.then()` method).
-
-An optional `initial` value to the `chain` method will be passed to the first promise of the iterable.
+NOTE: Passing the previous value to the next item is meaningful only when the next item is a function (similar to a `onFulfilled` handler of the `Promise.then()` method).
 
 ==== Parameters
 * `*array*` - An iterable object, such as an `Array`.footnoteref:[iterable, The https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/iterable[iterable] protocol allows JavaScript objects to define or customize their iteration behavior, such as what values are looped over in a for..of construct. ]
 * `*initial*` `_(*)_` - Optional value passed to the first item.
 
 ==== Returns
-A pending `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise[Promise]` that resolves with the value of the last item of the array, or rejects with reason of the first rejecting item in the iterable. 
+A pending `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise[Promise]` that resolves with the value of the last item of the array, or rejects with reason of the first rejecting item in the iterable.
+
+==== Description
+This method can be useful for chaining multiple promises.
+
+.Fulfilment
+* If an empty iterable is passed, this method returns (synchronously) an already resolved promise.
+* In all other cases, the promise returned by `chain` is fulfilled asynchronously.
+
+.Rejection
+If an iterable item rejects, `chain` asynchronously rejects with the rejection reason. Subsequent items in the iterable are not processed.
+
+==== Examples
 
 ```javascript
 arrayp.chain( [
@@ -85,6 +95,9 @@ Promise
 
 //output: 2
 ```
+
+=== `series(iterable)`
+
 
 === `first(array)`
 
@@ -114,8 +127,5 @@ arrayp.tryEach([
 ```
 
 
-=== `series(array [, join])`
-
-=== `waterfall(array [, join])`
 
 === `parallel(array [, limit])`

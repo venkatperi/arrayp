@@ -1,12 +1,7 @@
 assert = require( 'assert' )
 arrayp = require( '..' )
 {$Px, $Pr} = require( '../lib/util' )
-
-literals = [ 1, 2, 3, 4, 'test' ]
-
-functions = [ (->  1), (( x ) -> $Pr( x + 1 )), ( ( x ) -> x * 2) ]
-
-promises = [ $Pr( 1 ), $Pr( 2 ), $Pr( 3 ) ]
+{rejecting, literals, functions, promises} = require( './fixtures/iterables' )
 
 describe 'chain', ->
   describe 'operates on', ->
@@ -28,19 +23,23 @@ describe 'chain', ->
         assert.equal res, 3
 
   it 'returns result of the last item', ->
-    arrayp.chain( [ 1, 2, 3, 4 ] ).then ( res )->
-      assert.equal res, 4
+    arrayp.chain( literals ).then ( res )->
+      assert.equal res, 'test'
 
   it 'result of item is argument to next', ->
     arrayp.chain( functions ).then ( res )->
       assert.equal res, 4
 
   it 'stops on error', ( ) ->
-    arrayp.chain( [ 1, 2, $Px( 3 ), 7 ] )
+    arrayp.chain( rejecting )
       .then -> throw new Error "shouldn't get here"
       .catch ( x ) -> assert.equal x, 3
 
   it 'initial value', ->
     arrayp.chain( functions[ 1.. ], 10 ).then ( res )->
       assert.equal res, 22
+
+  it 'empty iterable', ( ) ->
+    arrayp.chain( [] ).then ( res ) ->
+      assert.equal res, undefined
 
