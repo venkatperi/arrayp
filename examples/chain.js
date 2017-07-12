@@ -24,7 +24,7 @@
 const arrayp = require( '..' );
 
 arrayp.chain( [
-  ( x ) => 1,
+    1,
   ( x ) => new Promise( ( resolve ) => setTimeout( () => resolve( x + 1 ), 250 ) ),
   ( x ) => x * 3,
   ( x ) => Promise.resolve( x - 4 ),

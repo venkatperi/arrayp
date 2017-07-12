@@ -57,7 +57,7 @@ Runs each item of the array in series and returns a `Promise` which resolves wit
 
 ```javascript
 arrayp.chain( [
-  ( x ) => 1,
+  1, //literal
   ( x ) => new Promise( ( resolve ) =>
     setTimeout( () => resolve( x + 1 ), 250 ) ),
   ( x ) => x * 3,
