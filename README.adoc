@@ -53,7 +53,7 @@ The value from one item in the iterable is passed as an argument to the next ite
 The optional `initial` value to the `chain` method will be passed to the first promise of the iterable.
 
 ==== Parameters
-* `*array*` - An iterable footnote:[iterable,The https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/iterable[iterable] protocol allows JavaScript objects to define or customize their iteration behavior, such as what values are looped over in a for..of construct. ]
+* `*array*` - An iterable footnoteref:[iterable, The https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/iterable[iterable] protocol allows JavaScript objects to define or customize their iteration behavior, such as what values are looped over in a for..of construct. ]
 * `*initial*` `_(*)_` - Optional value passed to the first item.
 
 ==== Returns
