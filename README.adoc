@@ -49,8 +49,8 @@ const {chain} = require('arrayp');
 Runs each item of the array in series and returns a `Promise` which resolves with the value returned by the last item of the array. Each item in the array passes its result to the next. If any of the items rejects with an error, the next item is not executed and the function rejects with the same error.
 
 ==== Arguments
-* `*array*` `Array | Iterable` - The collection of items to execute.
-* `*initial*` `_(*)_` - Optional value passed to the first item. 
+* [big]#`*array*`# `Array | Iterable` - The collection of items to execute.
+* `*initial*` `_(*)_` - Optional value passed to the first item.
 
 ==== Returns
 * `*Promise*` which resolves with the value of the last item of the array, or rejects with the first error encountered.
