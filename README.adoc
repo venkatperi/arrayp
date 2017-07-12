@@ -41,7 +41,7 @@ Collection items are converted to `Promise` objects in the following manner:
 
 == Methods
 
-=== `chain(array) : Promise`
+=== `chain(array [, initial]) : Promise`
 
 ```javascript
 const {chain} = require('arrayp');
@@ -49,10 +49,11 @@ const {chain} = require('arrayp');
 Runs each item of the array in series and returns a `Promise` which resolves with the value returned by the last item of the array. Each item in the array passes its result to the next. If any of the items rejects with an error, the next item is not executed and the function rejects with the same error.
 
 ==== Arguments
-* `array`: The collection of items to execute.
+* `*array*` `Array | Iterable` - The collection of items to execute.
+* `*initial*` `_(*)_` - Optional value passed to the first item. 
 
 ==== Returns
-* `Promise`: Resolves with the value of the last item of the array, or rejects with the first error encountered.
+* `*Promise*` which resolves with the value of the last item of the array, or rejects with the first error encountered.
 
 ```javascript
 arrayp.chain( [
@@ -91,7 +92,10 @@ const {tryEach} = require('arrayp');
 Runs each item of the array in series and returns a `Promise`. It stops at the first `Promise` that resolves successfully and the returned `Promise` resolves to that value. If all items in the array reject with errors, the returned `Promise` is rejected with the error returned by the final item in the series.
 
 ==== Arguments
-*  `*array*` `Array` | `Iterable`
+* `*array*` `Array | Iterable` - The collection of items to execute.
+
+==== Returns
+* `*Promise*` which resolves with the value of the first successful item of the array, or rejects with the error of the last item.
 
 ==== Example
 
