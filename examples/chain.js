@@ -21,18 +21,11 @@
 
 'use strict';
 
-const parallel = require( './parallel' );
-const series = require( './series' );
-const {_delay} = require( './util' );
+const arrayp = require( '..' );
 
-module.exports = {
-  delay : _delay,
-  until : ( arr ) => series( arr, {breakOnLast : true, breakOnError : false} ),
-  first : ( arr ) => series( arr, {breakOnFirst : true, breakOnError : false} ),
-  chain : ( arr ) => series( arr, {chain : true} ),
-  series : ( arr ) => series( arr, {gather : true} ),
-  parallel : parallel,
-};
-
-// waterfall : ( arr ) => arr.reduce( ( r, n ) => r.then( pfn( n ) ), $R() ),
-// series : ( arr ) => arr.reduce( ( r, n ) => r.then( ( arr ) => pfn( n ).then( arr.concat.bind( arr ) ) ), $R( [] ) ),
+arrayp.chain( [
+  ( x ) => 1,
+  ( x ) => new Promise( ( resolve ) => setTimeout( () => resolve( x + 1 ), 250 ) ),
+  ( x ) => x * 3,
+  ( x ) => Promise.resolve( x - 4 ),
+] ).then( console.log );
