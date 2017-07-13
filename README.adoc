@@ -12,14 +12,14 @@ endif::[]
 :toc:
 :toc-placement!:
 
-+++
+++++
 <style>
 #user-content-toctitle {
   display: none;
   visibility: hidden;
 }
 </style>
-+++
+++++
 
 = arrayp
 
