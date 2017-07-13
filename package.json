@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "prepublish": "test"
+    "prepublish": "npm test"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "coffee-script": "^1.12.6",
     "lodash": "^4.17.4",
     "mocha": "^3.4.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "readme":"README.adoc"
+
 }
