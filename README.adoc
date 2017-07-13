@@ -16,6 +16,8 @@ endif::[]
 
 Functions for manipulating collections of JavaScript ((`Promise`)) objects.
 
+toc::[]
+
 == Usage
 Install with `npm`.
 
