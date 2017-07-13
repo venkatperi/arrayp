@@ -51,7 +51,7 @@ arrayp.chain( [
 //output: 2
 ```
 
-=== About arrayp Iterables
+== About arrayp Iterables
 `arrayp` methods operate on JavaScript https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol:[iterables] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. `arrayp` wait asynchronously for an item's resolved value (or rejection error).
 
 Collection items are converted to `Promise` objects in the following manner:
