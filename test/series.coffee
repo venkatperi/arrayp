@@ -19,7 +19,7 @@ describe 'series', ->
   it 'stops on error', ( ) ->
     arrayp.series( rejecting )
       .then -> throw new Error "shouldn't get here"
-      .catch ( x ) -> assert.equal x, 3
+      .catch ( x ) -> assert x instanceof Error
 
   it 'empty iterable', ( ) ->
     arrayp.series( [] ).then ( res ) ->

@@ -33,7 +33,7 @@ describe 'chain', ->
   it 'stops on error', ( ) ->
     arrayp.chain( rejecting )
       .then -> throw new Error "shouldn't get here"
-      .catch ( x ) -> assert.equal x, 3
+      .catch ( x ) -> assert x instanceof Error
 
   it 'initial value', ->
     arrayp.chain( functions[ 1.. ], 10 ).then ( res )->
