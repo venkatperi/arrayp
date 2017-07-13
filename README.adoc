@@ -8,7 +8,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :caution-caption: :fire:
 :warning-caption: :warning:
 endif::[]
-:toclevels: 2
+:toclevels: 1
 :toc:
 :toc-placement!:
 
