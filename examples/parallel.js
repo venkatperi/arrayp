@@ -23,19 +23,26 @@
 
 const arrayp = require( '..' );
 
-arrayp.chain( [1, 2, 3, 4, 5] ).then( console.log );
+function _( delay, value ) {
+  return function () {
+    console.log( `${value}: start (${delay})` );
+    return new Promise( ( resolve ) => {
+      setTimeout( () => {
+        console.log( `${value}: done` );
+        resolve( value )
+      }, delay )
+    } );
+  };
+}
 
-arrayp.chain( [
-  1,
-  ( x ) => new Promise( ( resolve ) => setTimeout( () => resolve( x + 1 ), 250 ) ),
-  ( x ) => x * 3,
-  ( x ) => Promise.resolve( x - 4 ),
-  console.log
-] );
+const array = [
+  _( 200, 1 ),
+  _( 100, 2 ),
+  _( 500, 3 ),
+  _( 250, 4 ),
+  _( 400, 5 ),
+  _( 50, 6 )
+];
 
-Promise
-    .resolve( 1 )
-    .then( ( x ) => new Promise( ( resolve ) => setTimeout( () => resolve( x + 1 ), 250 ) ) )
-    .then( ( x ) => x * 3 )
-    .then( ( x ) => Promise.resolve( x - 4 ) )
-    .then( console.log );
+arrayp.parallel( array ).then( console.log );
+// arrayp.parallel( array, 3 ).then( console.log );

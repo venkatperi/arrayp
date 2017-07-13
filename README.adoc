@@ -44,7 +44,9 @@ arrayp.chain( [
   // Argument: '6'. Asynchronously resolves to '2'
   ( x ) => Promise.resolve( x - 4 ),
 
-] ).then( console.log );
+  // emit output
+  console.log
+] );
 
 //output: 2
 ```
@@ -58,7 +60,7 @@ Collection items are converted to `Promise` objects in the following manner:
 * Non `Promise` objects are converted to a `Promise` that resolve to the object
 * Functions are wrapped in a `Promise`. When used, the function is invoked and the `Promise` resolves with the value returned by the function, or is rejected with an error if the function throws an error.
 
-== chain(iterable [, initial]) : Promise
+== chain(iterable, [initial]) : Promise
 Evaluates each promise in the iterable in series and returns a `Promise` that resolves with the value from the last item in the iterable, or rejects with the reason from the first item in the iterable that rejects. The value from one item in the iterable is passed as an argument to the next item. An optional `initial` value to the `chain` method will be passed to the first promise of the iterable.
 
 === Parameters
@@ -93,7 +95,8 @@ arrayp.chain( [
     setTimeout( () => resolve( x + 1 ), 250 ) ),
   ( x ) => x * 3,
   ( x ) => Promise.resolve( x - 4 ),
-] ).then( console.log );
+  console.log
+] );
 
 //output: 2
 ```
@@ -153,6 +156,83 @@ arrayp.series( [
 //output: [1,2,3,4,5]
 ```
 
-== parallel(array [, limit])
+== parallel(array, [limit])
 
-== run(array [, limit])
+=== Examples
+
+==== No Limit (like `Promise.all()`)
+
+A helper function:
+```javascript
+function _( delay, value ) {
+  return function () {
+    console.log( `${value}: start` );
+    return new Promise( ( resolve ) => {
+      setTimeout( () => {
+        console.log( `${value}: done` );
+        resolve( value )
+      }, delay )
+    } );
+  };
+}
+
+const array = [
+  _( 200, 1 ),
+  _( 100, 2 ),
+  _( 500, 3 ),
+  _( 250, 4 ),
+  _( 400, 5 ),
+  _( 50, 6 )
+];
+
+```
+
+`parallel`:
+```javascript
+arrayp.parallel( array )
+      .then( console.log );
+```
+
+Output:
+```
+1: start (200)
+2: start (100)
+3: start (500)
+4: start (250)
+5: start (400)
+6: start (50)
+6: done
+2: done
+1: done
+4: done
+5: done
+3: done
+[ 1, 2, 3, 4, 5, 6 ]
+```
+
+==== Limit Parallel Tasks to 3
+
+`parallel(iterable, 3)`:
+```javascript
+arrayp.parallel( array, 3 )
+      .then( console.log );
+```
+
+Output:
+```
+1: start (200)
+2: start (100)
+3: start (500)
+2: done
+4: start (250)
+1: done
+5: start (400)
+4: done
+6: start (50)
+6: done
+3: done
+5: done
+[ 1, 2, 3, 4, 5, 6 ]
+```
+
+== run(array, [limit])
