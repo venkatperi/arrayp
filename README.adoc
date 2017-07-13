@@ -14,7 +14,7 @@ endif::[]
 
 = arrayp
 
-Functions for manipulating collections of JavaScript `Promise` objects.
+Functions for manipulating collections of JavaScript [<`Promise`>] objects.
 
 == Usage
 Install with `npm`.
@@ -26,6 +26,7 @@ $ npm install arrayp --save
 ```javascript
 const arrayp = require('arrayp');
 
+// Chain list of promises, passing result of one to the next.
 arrayp.chain( [
   // Synchronously resolves to '1'
   1,
@@ -56,18 +57,19 @@ Collection items are converted to `Promise` objects in the following manner:
 
 == Methods
 
-=== `chain(iterable [, initial]) : Promise`
+=== chain(iterable [, initial]) : Promise
 
 ```javascript
 const {chain} = require('arrayp');
 ```
-The `chain` method evaluates each promise in the iterable in series and returns a `Promise` that resolves with the value from the last item in the iterable, or rejects with the reason from the first item in the iterable that rejects. The value from one item in the iterable is passed as an argument to the next item. An optional `initial` value to the `chain` method will be passed to the first promise of the iterable.
 
-NOTE: Passing the previous value to the next item is meaningful only when the next item is a function (similar to a `onFulfilled` handler of the `Promise.then()` method).
+`chain` evaluates each promise in the iterable in series and returns a `Promise` that resolves with the value from the last item in the iterable, or rejects with the reason from the first item in the iterable that rejects. The value from one item in the iterable is passed as an argument to the next item. An optional `initial` value to the `chain` method will be passed to the first promise of the iterable.
+
+NOTE: Passing the previous value to the next item is meaningful only when the next item is a function.
 
 ==== Parameters
-* `*array*` - An iterable object, such as an `Array`.footnoteref:[iterable, The https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/iterable[iterable] protocol allows JavaScript objects to define or customize their iteration behavior, such as what values are looped over in a for..of construct. ]
-* `*initial*` `_(*)_` - Optional value passed to the first item.
+* `*array*` An iterable object, such as an `Array`.
+* `*initial*` `_(*)_` Optional value passed to the first item.
 
 ==== Returns
 A pending `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise[Promise]` that resolves with the value of the last item of the array, or rejects with reason of the first rejecting item in the iterable.
