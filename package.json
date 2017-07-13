@@ -4,12 +4,16 @@
   "description": "operations on arrays of promises",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "jsdoc2md --template doc/README.hbs --files lib/arrayp.js > api.md"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "lodash": "^4.17.4",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "jsdoc-to-markdown": "^3.0.0"
+  },
+  "dependencies": {
   }
 }
