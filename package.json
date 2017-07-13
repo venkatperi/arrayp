@@ -1,6 +1,6 @@
 {
   "name": "arrayp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "operations on arrays of promises",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,5 @@
     "mocha": "^3.4.2"
   },
   "dependencies": {},
-  "readme":"README.adoc"
-
+  "readme": "README.adoc"
 }
