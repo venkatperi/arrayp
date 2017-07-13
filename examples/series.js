@@ -23,18 +23,12 @@
 
 const arrayp = require( '..' );
 
-arrayp.chain( [1,2,3,4,5] ).then( console.log );
+arrayp.series( [1, 2, 3, 4, 5] ).then( console.log );
 
-arrayp.chain( [
+arrayp.series( [
   1,
-  ( x ) => new Promise( ( resolve ) => setTimeout( () => resolve( x + 1 ), 250 ) ),
-  ( x ) => x * 3,
-  ( x ) => Promise.resolve( x - 4 ),
+  () => new Promise( ( resolve ) => setTimeout( () => resolve( 2 ), 250 ) ),
+  () => 3,
+  () => Promise.resolve( 4 ),
+  Promise.resolve( 5 ),
 ] ).then( console.log );
-
-Promise
-    .resolve( 1 )
-    .then( ( x ) => new Promise( ( resolve ) => setTimeout( () => resolve( x + 1 ), 250 ) ) )
-    .then( ( x ) => x * 3 )
-    .then( ( x ) => Promise.resolve( x - 4 ) )
-    .then( console.log );
