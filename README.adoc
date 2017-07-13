@@ -14,7 +14,7 @@ endif::[]
 
 = arrayp
 
-Functions for manipulating collections of JavaScript [<`Promise`>] objects.
+Functions for manipulating collections of JavaScript ((<`Promise`>)) objects.
 
 == Usage
 Install with `npm`.
