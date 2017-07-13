@@ -12,6 +12,9 @@ endif::[]
 :toc:
 :toc-placement!:
 
+
+= arrayp
+
 ++++
 <style>
 #user-content-toctitle {
@@ -21,7 +24,6 @@ endif::[]
 </style>
 ++++
 
-= arrayp
 
 Functions for manipulating collections of JavaScript ((`Promise`)) objects.
 
