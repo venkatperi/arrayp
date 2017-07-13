@@ -12,31 +12,46 @@ endif::[]
 :toc:
 :toc-placement!:
 
-= `arrayp`
+= arrayp
 
-`arrayp` provides functions for manipulating collections of JavaScript `Promise` objects.
+Functions for manipulating collections of JavaScript `Promise` objects.
 
-//toc:Iu:[]
-
-== Install
+== Usage
 Install with `npm`.
 
 ```bash
 $ npm install arrayp --save
 ```
 
-== Usage
 ```javascript
 const arrayp = require('arrayp');
+
+arrayp.chain( [
+  // Synchronously resolves to '1'
+  1,
+
+  // Argument: '1'. Asynchronously resolves to '2'
+  ( x ) => new Promise( ( resolve ) =>
+    setTimeout( () => resolve( x + 1 ), 250 ) ),
+
+  // Argument: '2'. Asynchronously resolves to '6'
+  ( x ) => x * 3,
+
+  // Argument: '6'. Asynchronously resolves to '2'
+  ( x ) => Promise.resolve( x - 4 ),
+
+] ).then( console.log );
+
+//output: 2
 ```
 
-=== About `arrayp` Collections
-`arrayp` methods operate on JavaScript https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol:[iterables] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. Methods use the `Promise` objects by asynchronously waiting for an item's result (or error). In one sense, the collection can be viewed as containing tasks which are executed by `arrayp` methods.
+=== About arrayp Iterables
+`arrayp` methods operate on JavaScript https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol:[iterables] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. `arrayp` methods use the `Promise` objects by asynchronously waiting for an item's resolved value (or rejection error).
 
 Collection items are converted to `Promise` objects in the following manner:
 
-* `Promise` objects are used as-is. Methods _invoke_ the item by using the result of the `Promise`  object.
-* Non `Promise` objects are converted to a `Promise` which resolves to the object (with `Promise.resolve()`). Invoking the item returns the item itself.
+* `Promise` objects are used as-is.
+* Non `Promise` objects are converted to a `Promise` that resolve to the object
 * Functions are wrapped in a `Promise`. When used, the function is invoked and the `Promise` resolves with the value returned by the function, or is rejected with an error if the function throws an error.
 
 == Methods
