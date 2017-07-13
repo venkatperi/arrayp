@@ -57,29 +57,27 @@ Collection items are converted to `Promise` objects in the following manner:
 * Non `Promise` objects are converted to a `Promise` that resolve to the object
 * Functions are wrapped in a `Promise`. When used, the function is invoked and the `Promise` resolves with the value returned by the function, or is rejected with an error if the function throws an error.
 
-== Methods
-
-=== chain(iterable [, initial]) : Promise
+== chain(iterable [, initial]) : Promise
 Evaluates each promise in the iterable in series and returns a `Promise` that resolves with the value from the last item in the iterable, or rejects with the reason from the first item in the iterable that rejects. The value from one item in the iterable is passed as an argument to the next item. An optional `initial` value to the `chain` method will be passed to the first promise of the iterable.
 
-==== Parameters
+=== Parameters
 * `*array*` An iterable object, such as an `Array`.
 * `*initial*` `_(*)_` Optional value passed to the first item.
 
-==== Returns
+=== Returns
 A pending `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise[Promise]` that resolves with the value of the last item of the array, or rejects with reason of the first rejecting item in the iterable.
 
-==== Description
+=== Description
 This method can be useful for chaining multiple promises.
 
-===== Fulfilment
+==== Fulfilment
 * If an empty iterable is passed, this method returns (synchronously) an already resolved promise.
 * In all other cases, the promise returned by `chain` is fulfilled asynchronously.
 
-===== Rejection
+==== Rejection
 If an iterable item rejects, `chain` asynchronously rejects with the rejection reason. Subsequent items in the iterable are not processed.
 
-==== Examples
+=== Examples
 
 ```javascript
 arrayp.chain( [1,2,3,4,5] ).then( console.log );
@@ -114,27 +112,27 @@ Promise
 //output: 2
 ```
 
-=== series(iterable) : Promise
+== series(iterable) : Promise
 Evaluates each promise in the iterable in _series_ and returns a `Promise` that resolves with array containing all the resolved values of the iterable passed as argument. It rejects with the reason of the first promise that rejects.
 
-==== Parameters
+=== Parameters
 * `*array*` An iterable object, such as an `Array`.
 
-==== Returns
+=== Returns
 * An already resolved Promise if the iterable passed is empty.
 * In all other cases, a pending `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise[Promise]` that resolves with array containing all the resolved values when all items in the given iterable have been resolved.
 
-==== Description
+=== Description
 This method can be useful for chaining multiple promises.
 
-===== Fulfilment
+==== Fulfilment
 * If an empty iterable is passed, this method returns (synchronously) an already resolved promise.
 * In all other cases, the promise returned by `chain` is fulfilled asynchronously.
 
-===== Rejection
+==== Rejection
 If an iterable item rejects, `chain` asynchronously rejects with the rejection reason. Subsequent items in the iterable are not processed.
 
-==== Examples
+=== Examples
 
 ```javascript
 arrayp.series( [1,2,3,4,5] ).then( console.log );
@@ -154,4 +152,6 @@ arrayp.series( [
 //output: [1,2,3,4,5]
 ```
 
-=== `parallel(array [, limit])`
+== parallel(array [, limit])
+
+== run(array [, limit])
