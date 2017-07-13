@@ -15,16 +15,6 @@ endif::[]
 
 = arrayp
 
-++++
-<style>
-#user-content-toctitle {
-  display: none;
-  visibility: hidden;
-}
-</style>
-++++
-
-
 Functions for manipulating collections of JavaScript ((`Promise`)) objects.
 
 toc::[]
