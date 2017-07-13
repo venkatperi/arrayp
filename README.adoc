@@ -77,11 +77,11 @@ A pending `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 ==== Description
 This method can be useful for chaining multiple promises.
 
-=====Fulfilment
+===== Fulfilment
 * If an empty iterable is passed, this method returns (synchronously) an already resolved promise.
 * In all other cases, the promise returned by `chain` is fulfilled asynchronously.
 
-=====Rejection
+===== Rejection
 If an iterable item rejects, `chain` asynchronously rejects with the rejection reason. Subsequent items in the iterable are not processed.
 
 ==== Examples
