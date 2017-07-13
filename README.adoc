@@ -47,7 +47,7 @@ arrayp.chain( [
 ```
 
 === About arrayp Iterables
-`arrayp` methods operate on JavaScript https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol:[iterables] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. `arrayp` methods use the `Promise` objects by asynchronously waiting for an item's resolved value (or rejection error).
+`arrayp` methods operate on JavaScript https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol:[iterables] which can contain literals, objects or functions. Before a collection item is used, it converted to a promise. `arrayp` wait asynchronously for an item's resolved value (or rejection error).
 
 Collection items are converted to `Promise` objects in the following manner:
 
@@ -77,11 +77,11 @@ A pending `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 ==== Description
 This method can be useful for chaining multiple promises.
 
-.Fulfilment
+=====Fulfilment
 * If an empty iterable is passed, this method returns (synchronously) an already resolved promise.
 * In all other cases, the promise returned by `chain` is fulfilled asynchronously.
 
-.Rejection
+=====Rejection
 If an iterable item rejects, `chain` asynchronously rejects with the rejection reason. Subsequent items in the iterable are not processed.
 
 ==== Examples
