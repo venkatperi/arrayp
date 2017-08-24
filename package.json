@@ -2,6 +2,10 @@
   "name": "arrayp",
   "version": "1.1.0",
   "description": "operations on arrays of promises",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/venkatperi/arrayp.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "mocha",
